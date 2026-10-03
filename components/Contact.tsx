@@ -215,7 +215,7 @@ export default function Contact() {
                         id="phone"
                         type="tel"
                         required
-                        placeholder="+254 700 000 000"
+                        placeholder="+254 722 000 000"
                         value={formData.phone}
                         onChange={(e) =>
                           setFormData({ ...formData, phone: e.target.value })

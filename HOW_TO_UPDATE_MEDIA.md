@@ -97,9 +97,9 @@ In `data/portfolioData.ts`, find the `projects` list. Each project has:
 
 In `data/portfolioData.ts`:
 ```ts
-email: "contact@wallaceogundo.com",
-phone: "+254 700 892 411",
-whatsApp: "+254700892411",
+email: "info@wallaceogundo.co.ke",
+phone: "+254 722 604 247",
+whatsApp: "+254722604247",
 linkedIn: "https://www.linkedin.com/in/wallaceogundo",
 twitterX: "https://x.com/wallaceogundo",
 location: "Nairobi, Kenya",

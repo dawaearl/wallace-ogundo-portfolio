@@ -129,9 +129,9 @@ export const portfolioData: PortfolioData = {
     role: "Marketing & Business Development Strategist / Operations Leader",
     location: "Nairobi, Kenya",
     regionBadge: "EAC / Pan-Africa / Global",
-    email: "contact@wallaceogundo.co.ke",
-    phone: "+254 700 892 411",
-    whatsApp: "+254700892411",
+    email: "info@wallaceogundo.co.ke",
+    phone: "+254 722 604 247",
+    whatsApp: "+254722604247",
     linkedIn: "https://www.linkedin.com",
     twitterX: "https://twitter.com",
     // Avatar used in navigation and quick header badge
