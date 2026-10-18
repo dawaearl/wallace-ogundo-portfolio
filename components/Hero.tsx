@@ -1,194 +1,148 @@
-"use client";
-
 import React from "react";
-import {
-  Mail,
-  ArrowRight,
-  TrendingUp,
-  Layers,
-  Globe2,
-  CheckCircle2,
-} from "lucide-react";
-import { LinkedInIcon, TwitterXIcon } from "@/components/Icons";
+import Image from "next/image";
+import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 
 export default function Hero() {
-  const [activeSection, setActiveSection] = React.useState(".01");
   const { profile, hero } = portfolioData;
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const projectsEl = document.getElementById("projects");
-      const contactEl = document.getElementById("contact");
-
-      const contactTop = contactEl ? contactEl.offsetTop - 300 : 7000;
-      const projectsTop = projectsEl ? projectsEl.offsetTop - 300 : 4000;
-
-      if (scrollY >= contactTop) {
-        setActiveSection(".03");
-      } else if (scrollY >= projectsTop) {
-        setActiveSection(".02");
-      } else {
-        setActiveSection(".01");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const metricIcons = [TrendingUp, Layers, Globe2, CheckCircle2];
+  const whatsAppUrl = `https://wa.me/${profile.whatsApp}?text=${encodeURIComponent(
+    hero.whatsAppPrefill
+  )}`;
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-radial-spotlight"
+      className="relative min-h-[100dvh] flex flex-col justify-between pt-20 sm:pt-24 pb-8 sm:pb-10 bg-obsidian-950 border-b border-hairline overflow-hidden"
     >
-      {/* Background ambient lighting and fine grid */}
-      <div className="absolute inset-0 bg-grain opacity-40 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-white/[0.03] blur-[140px] rounded-full pointer-events-none" />
+      {/* Fractured Rock Monolith Atmospheric Background Layer (Mobile + Desktop Calibrated) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none select-none overflow-hidden"
+      >
+        <div className="absolute top-0 bottom-0 right-0 w-full lg:w-[68%] xl:w-[64%]">
+          <Image
+            src={profile.monolithImage}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 68vw"
+            className="object-cover object-[65%_38%] sm:object-[center_42%] brightness-[0.42] sm:brightness-[0.46] contrast-[1.18] saturate-[0.65] sepia-[0.08]"
+          />
 
-      {/* Left Pinned Bar: Social Links & Section Indicator (.01) - Matching Reference */}
-      <div className="hidden lg:flex fixed left-8 bottom-12 z-30 flex-col items-center gap-6">
-        <div className="flex flex-col items-center gap-5 text-neutral-400">
-          <a
-            href={profile.linkedIn}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full hover:text-white hover:bg-white/10 transition-all duration-200"
-            aria-label="LinkedIn Profile"
-          >
-            <LinkedInIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={profile.twitterX}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 rounded-full hover:text-white hover:bg-white/10 transition-all duration-200"
-            aria-label="Twitter / X Profile"
-          >
-            <TwitterXIcon className="w-4 h-4" />
-          </a>
-          <a
-            href={`mailto:${profile.email}`}
-            className="p-2 rounded-full hover:text-white hover:bg-white/10 transition-all duration-200"
-            aria-label={`Email ${profile.name}`}
-          >
-            <Mail className="w-4 h-4" />
-          </a>
-          <div className="w-[1px] h-12 bg-white/15 my-1" />
-        </div>
+          {/* Mobile + Desktop Horizontal Alpha Mask: Guarantees WCAG AAA contrast on copy */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, #090A09 0%, rgba(9, 10, 9, 0.94) 32%, rgba(9, 10, 9, 0.52) 64%, rgba(9, 10, 9, 0.22) 85%, rgba(9, 10, 9, 0.6) 100%)",
+            }}
+          />
 
-        {/* Section Counter - Dynamically changes on scroll (.01, .02, .03) */}
-        <span className="font-mono text-xs font-bold tracking-widest text-emerald-400 bg-obsidian-950/80 px-2 py-1 rounded border border-white/10 transition-all duration-300">
-          {activeSection}
-        </span>
-      </div>
+          {/* Vertical Vignette Mask */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(9, 10, 9, 0.88) 0%, rgba(9, 10, 9, 0.25) 24%, rgba(9, 10, 9, 0.18) 70%, #090A09 100%)",
+            }}
+          />
 
-      {/* Right Pinned Bar: Vertical Scroll Indicator - Matching Reference */}
-      <div className="hidden lg:flex fixed right-8 bottom-12 z-30 flex-col items-center">
-        <a
-          href="#about"
-          className="flex items-center gap-3 text-[11px] font-medium tracking-[0.25em] text-neutral-300 hover:text-white transition-colors uppercase -rotate-90 origin-bottom"
-        >
-          <span>SCROLL</span>
-          <span className="w-8 h-[1px] bg-white/20"></span>
-        </a>
-      </div>
-
-      {/* Main Hero Container */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 flex-1 flex flex-col items-center justify-center text-center">
-        {/* Mobile/Tablet Section badge */}
-        <div className="lg:hidden mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] font-mono text-neutral-300">
-          <span>{activeSection}</span>
-          <span className="w-1 h-1 rounded-full bg-neutral-600"></span>
-          <span>OVERVIEW</span>
-        </div>
-
-        {/* Pre-title: HELLO, I AM */}
-        <div className="inline-flex items-center gap-3 mb-4">
-          <span className="w-6 h-[1px] bg-white/40"></span>
-          <p className="text-xs sm:text-sm font-semibold tracking-ultra text-neutral-300 uppercase">
-            {hero.preTitle}
-          </p>
-          <span className="w-6 h-[1px] bg-white/40"></span>
-        </div>
-
-        {/* Center Title: WALLACE OGUNDO - Proportioned and centered without stretching */}
-        <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase mb-6 leading-tight select-none w-full max-w-5xl mx-auto text-center">
-          <span>{profile.firstName}</span>{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-100 to-neutral-400">
-            {profile.lastName}
-          </span>
-        </h1>
-
-        {/* Professional Subheading / Role */}
-        <p className="max-w-3xl text-sm sm:text-base md:text-lg font-medium text-neutral-300 tracking-wider uppercase mb-6">
-          {profile.role.split("/")[0]?.trim()}
-          {profile.role.includes("/") && (
-            <>
-              <span className="hidden sm:inline text-neutral-600 mx-3">/</span>
-              <br className="sm:hidden" />
-              <span>{profile.role.split("/")[1]?.trim()}</span>
-            </>
-          )}
-        </p>
-
-        {/* Executive Bio Tagline */}
-        <p className="max-w-2xl text-sm sm:text-base text-neutral-400 leading-relaxed mb-10 font-normal">
-          {hero.tagline}
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-16">
-          <a
-            href="#projects"
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-obsidian-950 hover:bg-neutral-200 font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg hover:shadow-white/20"
-          >
-            <span>{hero.ctaPrimaryText}</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
-
-          <a
-            href="#contact"
-            className="w-full sm:w-auto px-8 py-4 rounded-full border border-white/20 bg-white/[0.04] hover:bg-white/10 text-white font-semibold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm"
-          >
-            <span>{hero.ctaSecondaryText}</span>
-            <span className="text-[10px] text-neutral-300 font-mono">(.03)</span>
-          </a>
+          {/* Radial Depth Vignette around the rock column */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 62% 68% at 65% 48%, transparent 0%, rgba(9, 10, 9, 0.45) 65%, #090A09 100%)",
+            }}
+          />
         </div>
       </div>
 
-      {/* Bottom Floating Executive Metrics Card */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
-        <div className="rounded-2xl border border-white/10 bg-obsidian-900/60 backdrop-blur-xl p-6 sm:p-8 shadow-glow-card">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10">
-            {hero.metrics.map((metric, idx) => {
-              const Icon = metricIcons[idx % metricIcons.length];
-              return (
-                <div
-                  key={idx}
-                  className={`flex flex-col justify-center ${
-                    idx > 0 ? "pt-4 md:pt-0 md:pl-6 lg:pl-8" : ""
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-                      {metric.value}
-                    </span>
-                    <Icon className="w-4 h-4 text-emerald-400 shrink-0" />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-neutral-200 mb-0.5">
-                    {metric.label}
-                  </span>
-                  <span className="text-[11px] text-neutral-300 font-mono">
-                    {metric.sub}
-                  </span>
-                </div>
-              );
-            })}
+      {/* Top Spacer for Nav Clearance */}
+      <div className="h-2 sm:h-4" />
+
+      {/* Main Mobile-First Hero Content */}
+      <div className="relative z-10 w-full max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-14 my-auto py-6 sm:py-12">
+        <div className="max-w-[760px]">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2.5 mb-5 sm:mb-7 animate-line-1">
+            <span className="w-1.5 h-1.5 bg-brass shrink-0" />
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-bone-stone">
+              {hero.eyebrow}
+            </span>
           </div>
+
+          {/* Monumental Display Headline */}
+          <h1 className="font-display font-medium text-bone display-monumental mb-5 sm:mb-7">
+            <span className="block overflow-hidden pb-1">
+              <span className="block animate-line-1">
+                {hero.headlineLines[0]}
+              </span>
+            </span>
+            <span className="block overflow-hidden pb-1">
+              <span className="block animate-line-2">
+                {hero.headlineLines[1]}
+              </span>
+            </span>
+            <span className="block overflow-hidden pb-1">
+              <span className="block animate-line-3 text-bone">
+                {hero.headlineLines[2]}
+              </span>
+            </span>
+          </h1>
+
+          {/* Supporting Thesis (17 words, >=16px on mobile) */}
+          <p className="text-base sm:text-[17px] text-bone-muted leading-[1.6] max-w-[50ch] mb-8 sm:mb-10 animate-fade-delayed">
+            {hero.supportingThesis}
+          </p>
+
+          {/* Primary WhatsApp CTA & Secondary Track Record Link (44px+ tap targets) */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-7 animate-fade-delayed">
+            <a
+              href={whatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-between sm:justify-center gap-3 px-6 py-3.5 bg-brass hover:bg-brass-light text-obsidian-950 font-medium text-[13px] tracking-tight btn-tactile link-external"
+            >
+              <span>{hero.ctaPrimaryText}</span>
+              <ArrowUpRight className="w-4 h-4 glyph-ne shrink-0" />
+            </a>
+
+            <a
+              href="#work"
+              className="min-h-[44px] inline-flex items-center gap-2 text-[13px] font-medium text-bone-muted hover:text-bone border-b border-white/20 hover:border-brass pb-1 self-start sm:self-auto transition-colors duration-200 link-scroll"
+            >
+              <span>{hero.ctaSecondaryText}</span>
+              <ArrowDown className="w-3.5 h-3.5 text-brass glyph-down" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Executive Proof Strip */}
+      <div className="relative z-10 w-full max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-14 pt-6 sm:pt-8 border-t border-hairline">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-10">
+          {hero.metrics.map((metric, idx) => (
+            <div
+              key={metric.label}
+              className={`flex flex-col ${
+                idx > 0 ? "lg:border-l lg:border-hairline lg:pl-8" : ""
+              }`}
+            >
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span className="font-display text-lg sm:text-2xl font-medium text-bone tracking-tight">
+                  {metric.value}
+                </span>
+                <span className="font-mono text-[9.5px] sm:text-[10px] uppercase tracking-[0.14em] text-brass">
+                  {metric.label}
+                </span>
+              </div>
+              <span className="font-mono text-[10px] sm:text-[11px] text-bone-stone mt-0.5">
+                {metric.sub}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

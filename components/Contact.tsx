@@ -1,296 +1,306 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  CheckCircle2,
-  Clock,
-  MessageSquare,
-  ShieldCheck,
-} from "lucide-react";
-import { LinkedInIcon } from "@/components/Icons";
+import { ArrowUpRight, Mail, RotateCcw } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
+
+interface MandateOption {
+  id: string;
+  label: string;
+  scope: string;
+  defaultPrompt: string;
+}
+
+const MANDATE_OPTIONS: MandateOption[] = [
+  {
+    id: "rtm",
+    label: "B2B Route-to-Market",
+    scope: "Distributor scaling & territory expansion",
+    defaultPrompt:
+      "I am looking to scale our B2B distribution network, territory design, and commercial stockist footprint across Kenya.",
+  },
+  {
+    id: "partnerships",
+    label: "Enterprise Partnerships",
+    scope: "Key accounts & institutional contracts",
+    defaultPrompt:
+      "We would like to structure corporate supply framework agreements, tier-1 accounts, and strategic vendor alliances.",
+  },
+  {
+    id: "gtm",
+    label: "Go-To-Market & Pricing",
+    scope: "Market entry & commercial positioning",
+    defaultPrompt:
+      "We require go-to-market execution, commercial pricing structure, and launch positioning for East Africa.",
+  },
+  {
+    id: "turnaround",
+    label: "Commercial Turnaround",
+    scope: "Sales velocity & margin recovery",
+    defaultPrompt:
+      "We are seeking to optimize sales force productivity, revenue velocity, and commercial margin performance.",
+  },
+  {
+    id: "advisory",
+    label: "Strategic Advisory",
+    scope: "Executive counsel & board mandates",
+    defaultPrompt:
+      "I would like to explore an executive commercial advisory engagement for our leadership team.",
+  },
+];
 
 export default function Contact() {
   const { profile, contact } = portfolioData;
 
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
+  const [selectedId, setSelectedId] = useState<string>(MANDATE_OPTIONS[0].id);
+  const [senderIdentity, setSenderIdentity] = useState<string>("");
+  const [customMessage, setCustomMessage] = useState<string>(
+    MANDATE_OPTIONS[0].defaultPrompt
+  );
+  const [hasManuallyEdited, setHasManuallyEdited] = useState<boolean>(false);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const selectedOption =
+    MANDATE_OPTIONS.find((item) => item.id === selectedId) ||
+    MANDATE_OPTIONS[0];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate clean dispatch (or forward to Formspree / Resend / Webhook)
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: "", phone: "", email: "", message: "" });
-      setTimeout(() => setIsSuccess(false), 7000);
-    }, 1200);
+  const handleSelectOption = (option: MandateOption) => {
+    setSelectedId(option.id);
+    if (!hasManuallyEdited) {
+      setCustomMessage(option.defaultPrompt);
+    }
   };
 
+  const handleResetPrompt = () => {
+    setCustomMessage(selectedOption.defaultPrompt);
+    setHasManuallyEdited(false);
+  };
+
+  const activeIdentityClean = senderIdentity.trim();
+
+  const formattedMessage = activeIdentityClean
+    ? `Hello Wallace, this is ${activeIdentityClean}.\n\nFocus: ${selectedOption.label}\n\n${customMessage.trim()}`
+    : `Hello Wallace,\n\nFocus: ${selectedOption.label}\n\n${customMessage.trim()}`;
+
+  const whatsAppHref = `https://wa.me/${profile.whatsApp}?text=${encodeURIComponent(
+    formattedMessage
+  )}`;
+
+  const mailtoHref = `mailto:${profile.email}?subject=${encodeURIComponent(
+    `Commercial Inquiry: ${selectedOption.label}${
+      activeIdentityClean ? ` | ${activeIdentityClean}` : ""
+    }`
+  )}&body=${encodeURIComponent(
+    `${formattedMessage}\n\n---\nDirect Contact Details:\n`
+  )}`;
+
   return (
-    <section id="contact" className="relative py-28 px-6 sm:px-8 lg:px-12 bg-obsidian-950 overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/[0.02] blur-[160px] rounded-full pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header with .03 Indicator */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-white/10 gap-4">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-neutral-300 uppercase mb-2">
-              <span className="text-white font-bold">{contact.sectionTag.split("—")[0].trim()}</span>
-              <span>—</span>
-              <span>{contact.sectionTag.split("—")[1]?.trim() || "COMMERCIAL INQUIRIES"}</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight uppercase">
-              {contact.sectionTitle}
-            </h2>
-          </div>
-
-          <div className="text-left sm:text-right">
-            <span className="text-xs font-mono tracking-wider text-emerald-400 flex items-center gap-1.5 uppercase">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Direct Channel Open
-            </span>
-          </div>
+    <section
+      id="contact"
+      className="relative py-16 sm:py-24 lg:py-28 bg-obsidian-950 border-b border-hairline"
+    >
+      <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 lg:px-14">
+        {/* Top Metadata Strip: 04 / LET'S TALK */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-10 sm:pb-14 border-b border-hairline">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-stone">
+            {contact.sectionIndex}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-dim">
+            {contact.rightTag}
+          </span>
         </div>
 
-        {/* Two-Column Split Layout - Matching Reference Mockup */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Direct Info & Coordinates (5 cols) */}
-          <div className="lg:col-span-5 space-y-8">
+        {/* Main Split Layout */}
+        <div className="pt-10 sm:pt-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Left Column (5 cols): Headline & Direct Coordinates */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div>
-              <h3 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight uppercase mb-4">
-                {contact.headline}
-              </h3>
-              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-md">
+              <h2 className="font-display font-medium text-bone display-monumental mb-5">
+                <span className="block">{contact.headlineLines[0]}</span>
+                <span className="block">{contact.headlineLines[1]}</span>
+                <span className="block">{contact.headlineLines[2]}</span>
+              </h2>
+              <p className="text-base text-bone-stone leading-relaxed max-w-[42ch]">
                 {contact.subheadline}
               </p>
             </div>
 
             {/* Direct Coordinates */}
-            <div className="space-y-6 pt-4 border-t border-white/10">
-              {/* Location */}
+            <div className="space-y-5 pt-6 border-t border-hairline">
               <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-300 block mb-1">
-                  Location / Base
-                </span>
-                <p className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
-                  {profile.location}
-                  <span className="text-xs text-neutral-400 font-normal">({contact.availabilityNote})</span>
-                </p>
-              </div>
-
-              {/* Phone */}
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-300 block mb-1">
-                  Direct Phone / WhatsApp
-                </span>
-                <a
-                  href={`tel:${profile.phone.replace(/\s+/g, "")}`}
-                  className="text-base sm:text-lg font-semibold text-white hover:text-emerald-400 transition-colors flex items-center gap-2 font-mono"
-                >
-                  <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                  {profile.phone}
-                </a>
-              </div>
-
-              {/* Email */}
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-300 block mb-1">
-                  Official Email
+                <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-bone-dim mb-1.5">
+                  DIRECT ELECTRONIC MAIL
                 </span>
                 <a
                   href={`mailto:${profile.email}`}
-                  className="text-base sm:text-lg font-semibold text-white hover:text-emerald-400 transition-colors flex items-center gap-2 font-mono"
+                  className="min-h-[44px] inline-flex items-center gap-2 text-base sm:text-lg font-medium text-bone border-b border-brass pb-1 hover:text-brass-light transition-colors link-external"
                 >
-                  <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                  {profile.email}
+                  <span>{profile.email}</span>
+                  <ArrowUpRight className="w-4 h-4 text-brass glyph-ne" />
                 </a>
               </div>
 
-              {/* Direct LinkedIn */}
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-300 block mb-1">
-                  LinkedIn Network
-                </span>
-                <a
-                  href={profile.linkedIn}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/30 text-xs font-semibold text-white uppercase tracking-wider transition-all"
-                >
-                  <LinkedInIcon className="w-4 h-4 text-[#0077b5]" />
-                  <span>Connect on LinkedIn</span>
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                </a>
-              </div>
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-1">
+                <div>
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-bone-dim mb-1">
+                    WHATSAPP DIRECT
+                  </span>
+                  <a
+                    href={whatsAppHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-h-[44px] font-mono text-sm text-bone hover:text-brass transition-colors inline-flex items-center gap-1.5 link-external"
+                  >
+                    <span>Message on WhatsApp</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-brass glyph-ne" />
+                  </a>
+                </div>
 
-            {/* Response Time Guarantee Pill */}
-            <div className="p-4 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
-              <Clock className="w-4 h-4 text-neutral-400 shrink-0" />
-              <p className="text-xs text-neutral-400">
-                {contact.officeHours}. Inquiries are reviewed personally.
-              </p>
+                <div>
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-bone-dim mb-1">
+                    BASE & COVERAGE
+                  </span>
+                  <span className="font-mono text-sm text-bone-muted block py-2">
+                    {contact.availabilityNote}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Sleek Floating Contact Form Card (7 cols) */}
-          <div className="lg:col-span-7">
-            <div className="relative rounded-3xl border border-white/15 bg-obsidian-900/90 p-8 sm:p-10 shadow-2xl backdrop-blur-xl">
-              <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-                <h4 className="font-display text-xl sm:text-2xl font-bold uppercase tracking-tight text-white">
-                  CONTACT FORM
-                </h4>
-                <span className="text-xs font-mono text-neutral-300">
-                  SECURE TRANSMISSION
+          {/* Right Column (7 cols): Professional Commercial Mandate Intake Console */}
+          <div className="lg:col-span-7 bg-obsidian-850 border border-hairline p-5 sm:p-8 space-y-6">
+            {/* Console Header */}
+            <div className="flex items-center justify-between gap-3 pb-4 border-b border-hairline">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-brass shrink-0" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone">
+                  COMMERCIAL MANDATE INTAKE
                 </span>
               </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-brass">
+                DIRECT PRINCIPAL DISPATCH
+              </span>
+            </div>
 
-              {isSuccess ? (
-                <div className="p-8 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-center space-y-4 animate-in fade-in duration-300">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h5 className="font-display text-xl font-bold text-white uppercase tracking-tight">
-                    Message Dispatched Successfully
-                  </h5>
-                  <p className="text-sm text-neutral-300 max-w-sm mx-auto">
-                    Thank you. Wallace has received your communication and will respond promptly via your specified email or phone.
-                  </p>
+            {/* Step 1: Focus Area Pill Selector */}
+            <div className="space-y-2.5">
+              <label className="block font-mono text-[10px] uppercase tracking-[0.16em] text-bone-stone">
+                01 / SELECT MANDATE SCOPE
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {MANDATE_OPTIONS.map((option) => {
+                  const isSelected = option.id === selectedId;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => handleSelectOption(option)}
+                      className={`min-h-[40px] px-3.5 py-2 text-xs font-mono transition-all duration-150 flex items-center gap-2 border btn-tactile ${
+                        isSelected
+                          ? "border-brass bg-obsidian-750 text-brass shadow-sm"
+                          : "border-hairline bg-obsidian-900/80 text-bone-stone hover:text-bone hover:border-white/20"
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          isSelected ? "bg-brass" : "bg-bone-dim/40"
+                        }`}
+                      />
+                      <span>{option.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="font-mono text-[10.5px] text-bone-dim pt-0.5">
+                Scope: {selectedOption.scope}
+              </p>
+            </div>
+
+            {/* Step 2: Client Identity (Optional) */}
+            <div className="space-y-2">
+              <label
+                htmlFor="client-identity"
+                className="block font-mono text-[10px] uppercase tracking-[0.16em] text-bone-stone"
+              >
+                02 / YOUR NAME & ORGANIZATION{" "}
+                <span className="text-bone-dim">(OPTIONAL)</span>
+              </label>
+              <input
+                id="client-identity"
+                type="text"
+                value={senderIdentity}
+                onChange={(e) => setSenderIdentity(e.target.value)}
+                placeholder="e.g., James Mwangi / Apex Industrial Ltd"
+                className="w-full min-h-[46px] px-3.5 bg-obsidian-900 border border-hairline focus:border-brass focus:outline-none text-bone placeholder:text-bone-dim/60 text-sm font-sans transition-colors rounded-none"
+              />
+            </div>
+
+            {/* Step 3: Editable Brief / Custom Message */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="mandate-brief"
+                  className="block font-mono text-[10px] uppercase tracking-[0.16em] text-bone-stone"
+                >
+                  03 / MANDATE BRIEF OR INQUIRY
+                </label>
+                {hasManuallyEdited && (
                   <button
-                    onClick={() => setIsSuccess(false)}
-                    className="mt-4 px-6 py-2 rounded-full border border-white/20 text-xs font-semibold text-white uppercase tracking-wider hover:bg-white/10"
+                    type="button"
+                    onClick={handleResetPrompt}
+                    className="font-mono text-[10px] text-brass hover:text-brass-light inline-flex items-center gap-1 focus:outline-none"
                   >
-                    Send Another Note
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reset to default</span>
                   </button>
+                )}
+              </div>
+              <textarea
+                id="mandate-brief"
+                rows={4}
+                value={customMessage}
+                onChange={(e) => {
+                  setCustomMessage(e.target.value);
+                  setHasManuallyEdited(true);
+                }}
+                placeholder="Type your brief, specific objectives, or inquiry here..."
+                className="w-full p-3.5 bg-obsidian-900 border border-hairline focus:border-brass focus:outline-none text-bone placeholder:text-bone-dim/60 text-sm font-sans transition-colors resize-none rounded-none leading-relaxed"
+              />
+            </div>
+
+            {/* Step 4: 1-Tap Outbound Dispatch */}
+            <div className="pt-2 space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a
+                  href={whatsAppHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="min-h-[52px] px-5 bg-brass hover:bg-brass-light text-obsidian-950 font-medium text-sm tracking-tight flex items-center justify-between btn-tactile link-external"
+                >
+                  <span>Chat on WhatsApp</span>
+                  <ArrowUpRight className="w-4 h-4 glyph-ne shrink-0" />
+                </a>
+
+                <a
+                  href={mailtoHref}
+                  className="min-h-[52px] px-5 border border-brass-rule bg-obsidian-750 hover:border-brass text-bone font-medium text-sm tracking-tight flex items-center justify-between btn-tactile link-external"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Mail className="w-4 h-4 text-brass" />
+                    <span>Email Direct</span>
+                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-brass glyph-ne shrink-0" />
+                </a>
+              </div>
+
+              {/* Direct Inbox Status Strip */}
+              <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-obsidian-900/60 border border-hairline text-bone-stone font-mono text-[11px]">
+                <div className="inline-flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brass animate-pulse" />
+                  <span>DIRECT INBOX: {profile.email}</span>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name field */}
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="name"
-                      className="block text-xs font-mono uppercase tracking-widest text-neutral-300"
-                    >
-                      Your Full Name / Entity *
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      placeholder="e.g. John Doe, Managing Director"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className="w-full px-4 py-3.5 rounded-xl border border-white/10 bg-obsidian-950/60 text-white placeholder-neutral-500 text-sm focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all font-mono"
-                    />
-                  </div>
-
-                  {/* Phone & Email Dual Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="phone"
-                        className="block text-xs font-mono uppercase tracking-widest text-neutral-300"
-                      >
-                        Phone / WhatsApp *
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        required
-                        placeholder="+254 722 000 000"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                        className="w-full px-4 py-3.5 rounded-xl border border-white/10 bg-obsidian-950/60 text-white placeholder-neutral-500 text-sm focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all font-mono"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="email"
-                        className="block text-xs font-mono uppercase tracking-widest text-neutral-300"
-                      >
-                        Corporate Email *
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        required
-                        placeholder="john@enterprise.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        className="w-full px-4 py-3.5 rounded-xl border border-white/10 bg-obsidian-950/60 text-white placeholder-neutral-500 text-sm focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all font-mono"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Message Field */}
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="message"
-                      className="block text-xs font-mono uppercase tracking-widest text-neutral-300"
-                    >
-                      Inquiry Nature & Brief *
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      required
-                      placeholder="Outline your commercial expansion, advisory needs, or consultation request..."
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      className="w-full px-4 py-3.5 rounded-xl border border-white/10 bg-obsidian-950/60 text-white placeholder-neutral-500 text-sm focus:outline-none focus:border-white/40 focus:ring-1 focus:ring-white/20 transition-all font-mono resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-white text-obsidian-950 font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg hover:shadow-white/20 disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-obsidian-950 border-t-transparent rounded-full animate-spin" />
-                        Transmitting Inquiry...
-                      </span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        <span>Dispatch Commercial Inquiry</span>
-                      </>
-                    )}
-                  </button>
-
-                  <div className="flex items-center justify-center gap-2 pt-2 text-[11px] text-neutral-300 text-center font-mono">
-                    <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Or direct WhatsApp dispatch to {profile.phone}</span>
-                  </div>
-                </form>
-              )}
+                <span className="text-brass">Response within 24 hours</span>
+              </div>
             </div>
           </div>
         </div>

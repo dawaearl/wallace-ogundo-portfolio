@@ -1,38 +1,34 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
-import MediaShowcase from "@/components/MediaShowcase";
+import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-obsidian-950 text-neutral-100 selection:bg-white selection:text-black">
-      {/* Fixed Navigation Bar */}
+    <main className="relative min-h-[100dvh] bg-obsidian-950 text-bone">
+      {/* Mobile-First Navigation & Scroll-Aware Sticky Action Bar */}
       <Navbar />
 
-      {/* Section .01: Hero Center-stage */}
+      {/* Hero: Fractured Rock Monolith & Commercial Value Proposition */}
       <Hero />
 
-      {/* Section .01.1: About & Executive Synthesis */}
-      <About />
-
-      {/* Section .01.2: Career Timeline & Competency Matrix */}
+      {/* 01 / WHAT I DO: 3 Core Marketing & B2B Growth Capabilities */}
       <Experience />
 
-      {/* Section .02: Signature Projects & Strategic Case Studies */}
+      {/* 02 / SELECTED WORK: 3 Inline Commercial Interventions */}
       <Projects />
 
-      {/* Section .02.1: Rich Media Gallery (Videos & Visuals) with Lightbox */}
-      <MediaShowcase />
+      {/* 03 / ABOUT WALLACE: Portrait Plate, 36-Word Bio & 3-Row Academic List */}
+      <About />
 
-      {/* Section .03: Contact & Inquiry Split Form */}
+      {/* 04 / LET'S TALK: Zero-Typing Objective Chip Selector & 1-Tap WhatsApp/Call/Email */}
       <Contact />
 
-      {/* Signature Footer */}
+      {/* Minimalist Colophon Footer */}
       <Footer />
     </main>
   );
