@@ -11,49 +11,46 @@ const config: Config = {
     extend: {
       colors: {
         obsidian: {
-          950: "#090a0c",
-          900: "#0f1013",
-          850: "#121316",
-          800: "#16171b",
-          700: "#1f2127",
-          600: "#2a2c34",
+          950: "#090A09",
+          900: "#0B0C0B",
+          850: "#0D0F0C",
+          800: "#111310",
+          750: "#131612",
+          700: "#171915",
+          600: "#222520",
         },
-        surface: {
-          dark: "#141519",
-          card: "rgba(22, 23, 28, 0.75)",
-          border: "rgba(255, 255, 255, 0.08)",
-          hover: "rgba(255, 255, 255, 0.12)",
+        bone: {
+          DEFAULT: "#EDEAE3",
+          muted: "#C7C5BC",
+          stone: "#8C8E82",
+          dim: "#5E6057",
         },
-        accent: {
-          DEFAULT: "#ffffff",
-          muted: "#9e9e9e",
-          subtle: "#71717a",
-          emerald: "#10b981",
-          gold: "#d4af37",
-        }
+        brass: {
+          DEFAULT: "#B59D60",
+          light: "#C6B075",
+          muted: "#9E874B",
+          patina: "#7A7548",
+          chartreuse: "#C4D152",
+        },
       },
       fontFamily: {
-        display: ["Montserrat", "Space Grotesk", "sans-serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "SF Mono", "monospace"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       letterSpacing: {
-        tighter: "-0.04em",
+        tighter: "-0.035em",
         tight: "-0.02em",
-        widest: "0.2em",
-        ultra: "0.3em",
+        widest: "0.18em",
+        ultra: "0.24em",
       },
-      boxShadow: {
-        glow: "0 0 50px -10px rgba(255, 255, 255, 0.08)",
-        "glow-card": "0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08)",
-        "glow-avatar": "0 0 25px rgba(255, 255, 255, 0.15)",
-      },
-      backgroundImage: {
-        "radial-spotlight": "radial-gradient(circle at 50% 35%, rgba(45, 48, 58, 0.35) 0%, rgba(15, 16, 19, 0.85) 60%, rgba(9, 10, 12, 1) 100%)",
-        "radial-card": "radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, rgba(20, 21, 25, 0.4) 100%)",
+      borderColor: {
+        hairline: "rgba(255, 255, 255, 0.08)",
+        "brass-rule": "rgba(181, 157, 96, 0.22)",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

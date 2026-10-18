@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { ArrowUp, Mail } from "lucide-react";
-import { LinkedInIcon, TwitterXIcon } from "@/components/Icons";
+import { ArrowUpRight, ArrowUp } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 
 export default function Footer() {
@@ -14,80 +12,43 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative py-20 px-6 sm:px-8 lg:px-12 bg-obsidian-950 border-t border-white/10 text-center overflow-hidden">
-      {/* Background grain */}
-      <div className="absolute inset-0 bg-grain opacity-30 pointer-events-none" />
+    <footer className="bg-obsidian-950 py-10 px-6 sm:px-10 lg:px-14">
+      <div className="w-full max-w-[1360px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Left: Copyright & Monograph Colophon (Mirrors PDF Footer) */}
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-dim">
+            © {new Date().getFullYear()} {profile.name.toUpperCase()}. INDEPENDENT BY DESIGN.
+          </span>
+        </div>
 
-      <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
-        {/* Subtle Pre-header: THE END */}
-        <p className="text-[11px] font-mono tracking-ultra uppercase text-neutral-300 mb-3">
-          THE END
-        </p>
+        {/* Right: Minimalist Utility Links (Mirrors PDF Footer) */}
+        <div className="flex flex-wrap items-center gap-6 font-mono text-[11px] text-bone-stone">
+          <a
+            href={profile.linkedIn}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-bone border-b border-brass/50 pb-0.5 transition-colors inline-flex items-center gap-1 link-external"
+          >
+            <span>LinkedIn</span>
+            <ArrowUpRight className="w-3 h-3 text-brass glyph-ne" />
+          </a>
 
-        {/* Big Footer Signature: THANKS FOR VISITING */}
-        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight mb-8">
-          THANKS FOR VISITING!
-        </h2>
+          <a
+            href={`mailto:${profile.email}`}
+            className="hover:text-bone transition-colors inline-flex items-center gap-1 link-external"
+          >
+            <span>Direct Mail</span>
+            <ArrowUpRight className="w-3 h-3 text-brass glyph-ne" />
+          </a>
 
-        {/* Smooth Back-to-Top Button */}
-        <button
-          onClick={scrollToTop}
-          className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 bg-white/5 hover:bg-white hover:text-obsidian-950 text-xs font-mono font-semibold uppercase tracking-widest text-neutral-200 transition-all duration-300 mb-12 shadow-lg hover:shadow-white/10"
-        >
-          <span>BACK TO TOP</span>
-          <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-1" />
-        </button>
-
-        {/* Brand Monogram & Social links */}
-        <div className="w-full pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-400">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full overflow-hidden border border-white/20 bg-obsidian-850">
-              <Image
-                src={profile.avatarImage}
-                alt={profile.name}
-                width={28}
-                height={28}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="font-display font-bold text-white tracking-widest uppercase">
-              {profile.name}
-            </span>
-            <span className="text-neutral-600">•</span>
-            <span className="uppercase">{profile.location}</span>
-          </div>
-
-          <div className="flex items-center gap-5 text-neutral-400">
-            <a
-              href={profile.linkedIn}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon className="w-4 h-4" />
-            </a>
-            <a
-              href={profile.twitterX}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-              aria-label="Twitter"
-            >
-              <TwitterXIcon className="w-4 h-4" />
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              className="hover:text-white transition-colors"
-              aria-label="Email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
-          </div>
-
-          <p className="font-mono text-[11px] text-neutral-300">
-            © {new Date().getFullYear()} ALL RIGHTS RESERVED
-          </p>
+          <button
+            type="button"
+            onClick={scrollToTop}
+            className="hover:text-bone transition-colors inline-flex items-center gap-1 focus:outline-none"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="w-3 h-3 text-brass" />
+          </button>
         </div>
       </div>
     </footer>

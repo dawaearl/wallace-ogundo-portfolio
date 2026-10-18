@@ -1,27 +1,40 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https://wallaceogundo.co.ke";
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const siteUrl = "https://www.wallaceogundo.co.ke";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Wallace Ogundo — Marketing & Business Development Strategist | Operations Leader",
+    default: "Wallace Ogundo | Marketing & Business Development Strategist",
     template: "%s | Wallace Ogundo",
   },
   description:
-    "Official executive portfolio of Wallace Ogundo: Marketing & Business Development Strategist, Operations Leader, and Commercial Growth Architect based in Nairobi, Kenya.",
+    "Executive portfolio of Wallace Ogundo: Marketing & Business Development Strategist helping industrial companies and regional brands scale B2B distribution, strategic partnerships, and market expansion across East Africa.",
   keywords: [
     "Wallace Ogundo",
     "Wallace Ogundo Kenya",
-    "Wallace Ogundo Nairobi",
-    "Wallace Ogundo Portfolio",
-    "Wallace Ogundo Marketing",
-    "Wallace Ogundo Operations",
-    "Marketing Strategist Kenya",
-    "Business Development Leader Nairobi",
-    "Commercial Operations Director East Africa",
-    "B2B Enterprise Growth Kenya",
+    "Marketing & Business Development Strategist Kenya",
+    "B2B Commercial Director Nairobi",
+    "Route to Market Strategy East Africa",
+    "Industrial Business Development Kenya",
+    "Ziyawall Limited",
+    "Go-to-Market Strategist Nairobi",
   ],
   authors: [{ name: "Wallace Ogundo", url: siteUrl }],
   creator: "Wallace Ogundo",
@@ -40,9 +53,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Wallace Ogundo — Marketing & Business Development Strategist",
+    title: "Wallace Ogundo | Marketing & Business Development Strategist",
     description:
-      "Executive portfolio of Wallace Ogundo: Architecting high-conversion market expansion, enterprise B2B partnerships, and agile commercial operations across East Africa.",
+      "Building High-Velocity Commercial Engines in East Africa. Scaling B2B distribution, strategic partnerships, and sustainable market expansion.",
     url: siteUrl,
     siteName: "Wallace Ogundo Executive Portfolio",
     locale: "en_KE",
@@ -52,15 +65,15 @@ export const metadata: Metadata = {
         url: "/wallace-avatar.png",
         width: 800,
         height: 800,
-        alt: "Wallace Ogundo — Executive Portrait",
+        alt: "Wallace Ogundo - Marketing & Business Development Strategist",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wallace Ogundo — Marketing & Business Development Strategist",
+    title: "Wallace Ogundo | Marketing & Business Development Strategist",
     description:
-      "Senior Marketing & Business Development Strategist and Operations Leader based in Nairobi, Kenya.",
+      "Helping industrial leaders and regional brands scale B2B distribution, strategic partnerships, and sustainable market expansion across East Africa.",
     images: ["/wallace-avatar.png"],
   },
 };
@@ -81,24 +94,80 @@ export default function RootLayout({
         familyName: "Ogundo",
         url: siteUrl,
         image: `${siteUrl}/wallace-avatar.png`,
-        jobTitle: "Marketing & Business Development Strategist / Operations Leader",
+        jobTitle: "Marketing & Business Development Strategist",
         description:
-          "Senior Marketing & Business Development Strategist, Operations Leader, and Enterprise Commercial Growth Architect based in Nairobi, Kenya.",
+          "Marketing and Business Development Strategist based in Nairobi, Kenya, specializing in B2B route-to-market scaling, enterprise deal structuring, and industrial commercial growth across East Africa.",
+        email: "mailto:info@wallaceogundo.co.ke",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Nairobi",
           addressCountry: "KE",
         },
-        sameAs: [
-          "https://www.linkedin.com",
-          "https://twitter.com",
+        worksFor: {
+          "@type": "Organization",
+          name: "Ziyawall Limited",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Nairobi",
+            addressCountry: "KE",
+          },
+        },
+        alumniOf: [
+          {
+            "@type": "CollegeOrUniversity",
+            name: "Dedan Kimathi University of Technology",
+            department: "BSc Construction Management",
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            name: "University of Nairobi",
+            department: "BSc Computer Science",
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            name: "Jomo Kenyatta University of Agriculture and Technology",
+            department: "BA Public Relations",
+          },
         ],
+        knowsAbout: [
+          "B2B Route-to-Market Strategy",
+          "Enterprise Business Development",
+          "Go-To-Market Execution",
+          "Distributor Network Scaling",
+          "Industrial B2B Sales & Key Accounts",
+          "Commercial Operations & Margin Growth",
+        ],
+        sameAs: ["https://www.linkedin.com"],
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteUrl}/#practice`,
+        name: "Wallace Ogundo Marketing & B2B Growth Practice",
+        url: siteUrl,
+        image: `${siteUrl}/images/logo.png`,
+        email: "info@wallaceogundo.co.ke",
+        priceRange: "$$$$",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Nairobi",
+          addressRegion: "Nairobi County",
+          addressCountry: "KE",
+        },
+        areaServed: [
+          { "@type": "Country", name: "Kenya" },
+          { "@type": "Country", name: "Uganda" },
+          { "@type": "Country", name: "Tanzania" },
+          { "@type": "Country", name: "Rwanda" },
+        ],
+        founder: {
+          "@id": `${siteUrl}/#person`,
+        },
       },
       {
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         url: siteUrl,
-        name: "Wallace Ogundo — Official Executive Portfolio",
+        name: "Wallace Ogundo | Marketing & Business Development Strategist",
         publisher: {
           "@id": `${siteUrl}/#person`,
         },
@@ -107,15 +176,18 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html
+      lang="en"
+      className={`dark ${jakarta.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
-        <link rel="icon" href="/wallace-avatar.png" type="image/png" />
+        <link rel="icon" href="/images/logo.png" type="image/png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-obsidian-950 text-neutral-100 antialiased selection:bg-white selection:text-black">
+      <body className="min-h-[100dvh] bg-obsidian-950 text-bone antialiased">
         {children}
       </body>
     </html>

@@ -1,16 +1,6 @@
 /**
  * ==============================================================================
- * WALLACE OGUNDO — PORTFOLIO CONTENT & MEDIA CONFIGURATION
- * ==============================================================================
- * This file centralizes ALL content, media, photos, videos, case studies,
- * and contact coordinates for the website.
- *
- * HOW TO UPDATE:
- * 1. Photos: You can use local paths (e.g., "/wallace-avatar.png", "/images/my-photo.jpg")
- *    OR external URLs (e.g. Unsplash, Cloudinary, Imgur).
- * 2. Videos: You can paste ANY normal YouTube link (e.g. "https://www.youtube.com/watch?v=...",
- *    "https://youtu.be/..."), Vimeo link ("https://vimeo.com/..."), or direct MP4 URL.
- *    The website will automatically format and stream it cleanly.
+ * WALLACE OGUNDO / MOBILE-FIRST MARKETING & BUSINESS DEVELOPMENT PORTFOLIO DATA
  * ==============================================================================
  */
 
@@ -20,24 +10,34 @@ export interface MetricItem {
   sub: string;
 }
 
-export interface StrategicPillar {
-  title: string;
-  desc: string;
-}
-
 export interface CaseStudy {
   id: string;
+  index: string;
   title: string;
   subtitle: string;
   category: string;
+  mandateRole: string;
   image: string;
   period: string;
   location: string;
   metrics: { label: string; value: string }[];
-  overview: string;
-  challenge: string;
-  solution: string;
+  challenge: string; // 1-sentence Context
+  solution: string; // 1-sentence Strategic Action
+  impactSummary: string; // 1-sentence Verified Outcome
   results: string[];
+}
+
+export interface DisciplineItem {
+  index: string;
+  title: string;
+  summary: string;
+  vectors: string[];
+}
+
+export interface AcademicCredential {
+  degree: string;
+  institution: string;
+  summaryLine: string;
 }
 
 export interface MediaItem {
@@ -46,26 +46,11 @@ export interface MediaItem {
   title: string;
   category: string;
   thumbnail: string;
-  videoUrl?: string; // Supports any YouTube, Vimeo, or MP4 URL
+  videoUrl?: string;
   duration?: string;
   date: string;
   description: string;
   metrics?: string;
-}
-
-export interface CareerExperience {
-  period: string;
-  role: string;
-  company: string;
-  location: string;
-  description: string;
-  achievements: string[];
-  skills: string[];
-}
-
-export interface CompetencyGroup {
-  category: string;
-  items: string[];
 }
 
 export interface PortfolioData {
@@ -75,6 +60,7 @@ export interface PortfolioData {
     lastName: string;
     monogram: string;
     role: string;
+    shortRole: string;
     location: string;
     regionBadge: string;
     email: string;
@@ -84,409 +70,278 @@ export interface PortfolioData {
     twitterX: string;
     avatarImage: string;
     portraitImage: string;
+    monolithImage: string;
+    logoImage: string;
     verifiedBadgeText: string;
     statusBadgeText: string;
   };
   hero: {
-    preTitle: string;
-    tagline: string;
+    eyebrow: string;
+    headlineLines: [string, string, string];
+    supportingThesis: string;
     ctaPrimaryText: string;
     ctaSecondaryText: string;
+    whatsAppPrefill: string;
     metrics: MetricItem[];
   };
-  about: {
-    sectionTag: string;
-    sectionTitle: string;
-    headline: string;
+  expertise: {
+    sectionIndex: string;
+    headlineLines: [string, string];
     subheadline: string;
-    narrative: string[];
-    pillars: StrategicPillar[];
+    disciplines: DisciplineItem[];
   };
   projects: CaseStudy[];
   media: MediaItem[];
-  experience: {
-    sectionTag: string;
-    sectionTitle: string;
-    timeline: CareerExperience[];
-    competencies: CompetencyGroup[];
+  credentials: {
+    sectionIndex: string;
+    headlineLines: [string, string];
+    shortBio: string;
+    degrees: AcademicCredential[];
   };
   contact: {
-    sectionTag: string;
-    sectionTitle: string;
-    headline: string;
+    sectionIndex: string;
+    rightTag: string;
+    headlineLines: [string, string, string];
     subheadline: string;
     availabilityNote: string;
     officeHours: string;
+    objectives: {
+      id: string;
+      label: string;
+      scope: string;
+    }[];
   };
 }
 
 export const portfolioData: PortfolioData = {
   profile: {
     name: "Wallace Ogundo",
-    firstName: "WALLACE",
-    lastName: "OGUNDO",
+    firstName: "Wallace",
+    lastName: "Ogundo",
     monogram: "WO",
-    role: "Marketing & Business Development Strategist / Operations Leader",
+    role: "Marketing & Business Development Strategist",
+    shortRole: "MARKETING & B2B GROWTH PRACTICE",
     location: "Nairobi, Kenya",
-    regionBadge: "EAC / Pan-Africa / Global",
+    regionBadge: "Kenya / East Africa",
     email: "info@wallaceogundo.co.ke",
-    phone: "+254 722 604 247",
-    whatsApp: "+254722604247",
+    phone: "",
+    whatsApp: "254722604247",
     linkedIn: "https://www.linkedin.com",
     twitterX: "https://twitter.com",
-    // Avatar used in navigation and quick header badge
     avatarImage: "/wallace-avatar.png",
-    // High-resolution portrait used in the About section
     portraitImage: "/wallace-avatar.png",
-    verifiedBadgeText: "Verified Executive Profile",
-    statusBadgeText: "Open to Advisory & Executive Roles",
+    monolithImage: "/images/rock-monolith.jpg",
+    logoImage: "/images/logo.png",
+    verifiedBadgeText: "Verified Commercial Practice",
+    statusBadgeText: "Open for Commercial & B2B Mandates",
   },
 
   hero: {
-    preTitle: "HELLO, I AM",
-    tagline:
-      "Architecting high-conversion market expansion, enterprise B2B partnerships, and agile commercial operations across East Africa and emerging frontiers.",
-    ctaPrimaryText: "View Case Studies",
-    ctaSecondaryText: "Contact Wallace",
+    eyebrow: "WO / MARKETING & BUSINESS DEVELOPMENT STRATEGIST",
+    headlineLines: [
+      "Building High-Velocity",
+      "Commercial Engines",
+      "in East Africa.",
+    ],
+    supportingThesis:
+      "Helping industrial leaders and regional brands scale B2B distribution, strategic partnerships, and sustainable market expansion.",
+    ctaPrimaryText: "Chat on WhatsApp",
+    ctaSecondaryText: "View Track Record",
+    whatsAppPrefill:
+      "Hello Wallace, I visited wallaceogundo.co.ke and would like to discuss a Marketing & Business Development mandate.",
     metrics: [
       {
-        value: "$45M+",
-        label: "Strategic Pipeline",
-        sub: "B2B Deals & Expansion",
+        value: "15+ Yrs",
+        label: "Commercial Leadership",
+        sub: "Marketing, B2B & Operations",
       },
       {
-        value: "12+ Yrs",
-        label: "Executive Leadership",
-        sub: "Commercial & Operations",
+        value: "KES 180M+",
+        label: "B2B Pipeline",
+        sub: "Industrial & Corporate Deals",
       },
       {
-        value: "8+",
-        label: "Regional Markets",
-        sub: "East Africa & Pan-African",
+        value: "650+",
+        label: "Trade Accounts",
+        sub: "Active Distributor Network",
       },
       {
-        value: "99.2%",
-        label: "SLA Fulfillment",
-        sub: "Operational Precision",
+        value: "EAC Wide",
+        label: "Market Footprint",
+        sub: "Kenya, Uganda, Tanzania & Rwanda",
       },
     ],
   },
 
-  about: {
-    sectionTag: ".01.1 — BIOGRAPHY & PHILOSOPHY",
-    sectionTitle: "ABOUT WALLACE OGUNDO",
-    headline: "BRIDGING HIGH-LEVEL COMMERCIAL STRATEGY WITH RIGOROUS GROUND EXECUTION.",
+  expertise: {
+    sectionIndex: "01 / WHAT I DO",
+    headlineLines: ["Three commercial pillars.", "One growth engine."],
     subheadline:
-      "A seasoned commercial strategist and operations executive with over a decade of track-record engineering sustainable revenue growth across East Africa.",
-    narrative: [
-      "Operating at the intersection of enterprise business development, supply-chain logistics, and scalable go-to-market architecture, Wallace Ogundo has built and revitalized commercial operations for leading regional enterprises, multinational FMCG groups, and high-velocity digital ventures.",
-      "His leadership philosophy pairs empirical analytics with tactical empathy: establishing high-yield distributor networks, standardizing performance SLAs across diverse regulatory regimes, and building cross-functional teams that consistently outpace revenue targets.",
-      "Based in Nairobi with active operational footprints across Kenya, Uganda, Tanzania, and Rwanda, Wallace advises corporate boards and growth-stage enterprises on mitigating frontier market risks and unlocking sustainable multi-million dollar commercial pipelines.",
-    ],
-    pillars: [
+      "Focused Marketing and Business Development leadership for industrial, manufacturing, and regional B2B enterprises.",
+    disciplines: [
       {
-        title: "GTM Strategy & Market Expansion",
-        desc: "Architecting end-to-end go-to-market playbooks, customer acquisition funnels, and brand positioning across competitive East African markets.",
+        index: "01",
+        title: "B2B Route-to-Market & Distributor Scaling",
+        summary:
+          "Designing high-yield territory architectures, distributor SLA frameworks, and numeric distribution engines across East Africa.",
+        vectors: ["Territory Design", "Distributor SLAs", "Channel Incentives"],
       },
       {
-        title: "Enterprise B2B Deal Structuring",
-        desc: "Forging multi-stakeholder commercial alliances, revenue partnerships, and institutional procurement contracts with Tier-1 corporate clients.",
+        index: "02",
+        title: "Enterprise Deal Structuring & Key Accounts",
+        summary:
+          "Forging multi-year corporate supply alliances, industrial key-account partnerships, and high-conversion institutional bids.",
+        vectors: ["B2B Alliances", "Key Account Growth", "Commercial Bidding"],
       },
       {
-        title: "Operational Rigor & Lean Scaling",
-        desc: "Optimizing supply chain bottlenecks, warehousing logistics, and workflow automation to sustain 30%+ year-over-year operational efficiency.",
-      },
-      {
-        title: "Executive Leadership & Governance",
-        desc: "Leading multi-disciplinary teams, managing P&L portfolios, and navigating complex regulatory landscapes across regional trade borders.",
+        index: "03",
+        title: "Go-To-Market Strategy & Revenue Turnaround",
+        summary:
+          "Launching and repositioning product lines with empirical pricing architecture, sales-force telemetry, and margin discipline.",
+        vectors: ["GTM Playbooks", "Pricing Strategy", "Sales Enablement"],
       },
     ],
   },
 
   projects: [
     {
-      id: "fmcg-expansion",
-      title: "Pan-African FMCG Commercial Expansion",
-      subtitle: "Multi-market commercial distribution and dealer network scaling across East Africa.",
-      category: "Market Expansion & GTM",
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
-      period: "2023 — 2024",
-      location: "Kenya, Uganda, Tanzania",
+      id: "ziyawall-b2b-expansion",
+      index: "01",
+      title: "Ziyawall Limited",
+      subtitle: "Industrial B2B Growth & Corporate Supply Alliances",
+      category: "INDUSTRIAL B2B / COMMERCIAL EXPANSION",
+      mandateRole: "Managing Director & Commercial Lead",
+      image: "/images/rock-monolith.jpg",
+      period: "2016 - Present",
+      location: "Nairobi & Nationwide, Kenya",
       metrics: [
-        { label: "Annual GMV", value: "$22M" },
-        { label: "Regional Hubs", value: "14" },
-        { label: "Cycle Speed", value: "+38%" },
-        { label: "Direct Dealers", value: "850+" },
+        { label: "Contract Volume", value: "KES 180M+" },
+        { label: "Gross Margin Lift", value: "+22%" },
+        { label: "Client Retention", value: "94%" },
       ],
-      overview:
-        "Designed and executed the East African expansion strategy for a major FMCG and consumer goods conglomerate. Wallace unified fragmented regional distributor networks into a centralized, transparent supply pipeline with real-time demand forecasting.",
       challenge:
-        "Severe cross-border logistics fragmentation, inconsistent distributor lead times (often exceeding 14 days), and poor visibility into retailer sell-through rates across regional borders.",
+        "Industrial buyers and corporate developers faced fragmented vendor supply chains and unpredictable contract pricing across Kenya.",
       solution:
-        "Implemented standardized regional SLA contracts, automated freight consolidation at border hubs, and introduced an incentivized B2B dealer portal with tier-based volume rebates.",
+        "Repositioned the commercial offering around multi-year B2B supply agreements, key-account SLAs, and direct factory-gate sourcing.",
+      impactSummary:
+        "Scaled annual commercial contract volume from KES 45M to KES 180M+ while lifting gross margins by 22% across repeat corporate accounts.",
       results: [
-        "Expanded regional distributor footprint from 180 to over 850 active commercial outlets within 18 months.",
-        "Trussed average fulfillment turnaround from 14 days down to 4.2 days across Nairobi, Kampala, and Dar es Salaam.",
-        "Delivered $22M in annualized gross merchandise value with an 18% improvement in distributor retention.",
+        "Grew active corporate pipeline to KES 180M+ across industrial and institutional accounts.",
+        "Protected 22% in gross margin through direct vendor framework agreements.",
       ],
     },
     {
-      id: "fintech-merchant-network",
-      title: "Enterprise Merchant Acquiring & B2B Engine",
-      subtitle: "Go-to-market architecture and commercial alliances for institutional digital payments.",
-      category: "B2B Partnerships & Strategy",
-      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80",
-      period: "2022 — 2023",
-      location: "Nairobi, Kenya",
+      id: "fmcg-rtm-transformation",
+      index: "02",
+      title: "Wrigley East Africa & Formula One Kenya",
+      subtitle: "Regional Route-to-Market & Channel Transformation",
+      category: "FMCG & COMMERCIAL / ROUTE-TO-MARKET",
+      mandateRole: "Regional Commercial & Territory Leadership",
+      image: "/images/rock-monolith.jpg",
+      period: "Regional Tenure",
+      location: "Kenya & East African Corridor",
       metrics: [
-        { label: "Institutional Pipeline", value: "$14M" },
-        { label: "Tier-1 Merchants", value: "450+" },
+        { label: "Active Accounts", value: "650+" },
+        { label: "Sell-Through Lift", value: "+38%" },
+        { label: "Fulfillment Cycle", value: "4 Days" },
+      ],
+      challenge:
+        "Distributor churn and 14-day fulfillment lags slowed sell-through velocity between urban wholesalers and regional retail stockists.",
+      solution:
+        "Restructured 14 primary distribution territories, introduced tier-based volume rebates, and deployed daily field-sales telemetry.",
+      impactSummary:
+        "Expanded active commercial stockists to 650+ accounts, lifting territory sell-through by 38% and cutting replenishment to 4 days.",
+      results: [
+        "Scaled active wholesale and retail distribution network to 650+ verified outlets.",
+        "Cut order-to-delivery turnaround from 14 days to 4 days across regional hubs.",
+      ],
+    },
+    {
+      id: "enterprise-b2b-pipeline",
+      index: "03",
+      title: "Enterprise B2B Partnerships & Market Entry",
+      subtitle: "Institutional Deal Structuring & Go-To-Market Execution",
+      category: "B2B STRATEGY / KEY ACCOUNT ACQUISITION",
+      mandateRole: "Commercial Growth & GTM Advisor",
+      image: "/images/rock-monolith.jpg",
+      period: "Multi-Market Advisory",
+      location: "Kenya, Uganda & Tanzania",
+      metrics: [
+        { label: "Closing Cycle", value: "45 Days" },
         { label: "CAC Reduction", value: "-24%" },
-        { label: "Transaction Vol", value: "+160%" },
+        { label: "Regional Footprint", value: "4 Markets" },
       ],
-      overview:
-        "Led enterprise business development to accelerate adoption of integrated digital transaction and POS infrastructure among Tier-1 retail chains, hospitality groups, and logistics providers in Kenya.",
       challenge:
-        "High merchant switching costs, lengthy institutional procurement cycles (averaging 6-9 months), and aggressive competition from legacy banking institutions.",
+        "Regional industrial and B2B brands struggled with 6-month institutional sales cycles and high customer acquisition overhead.",
       solution:
-        "Structured modular enterprise SLAs, tailored zero-downtime integration APIs with on-site deployment teams, and negotiated corporate risk-sharing agreements with leading commercial banks.",
+        "Engineered modular B2B partnership playbooks, C-suite decision-maker outreach, and risk-shared distributor onboarding.",
+      impactSummary:
+        "Compressed average enterprise deal closing cycles from 6 months to 45 days while lowering customer acquisition cost by 24%.",
       results: [
-        "Contracted 450+ premier merchant accounts, reducing standard enterprise closing cycle from 9 months to 45 days.",
-        "Drove a 160% increase in processed monthly transaction volumes across partner retail networks.",
-        "Lowered blended merchant acquisition cost by 24% through automated onboarding workflows.",
-      ],
-    },
-    {
-      id: "logistics-hub-transformation",
-      title: "Northern Corridor Transit & Fleet Overhaul",
-      subtitle: "Supply chain network optimization, customs telemetry, and multi-modal fleet governance.",
-      category: "Operations & Supply Chain",
-      image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=80",
-      period: "2020 — 2022",
-      location: "Mombasa — Nairobi — Kampala Corridor",
-      metrics: [
-        { label: "Fleet Capacity", value: "120 Units" },
-        { label: "Turnaround Time", value: "-35%" },
-        { label: "Fuel Efficiency", value: "+18%" },
-        { label: "SLA Adherence", value: "99.4%" },
-      ],
-      overview:
-        "Restructured end-to-end haulage operations along the Northern Transit Corridor connecting the Port of Mombasa with inland distribution centers in Nairobi and Uganda.",
-      challenge:
-        "Recurring transit delays due to manual port clearance bottlenecks, unmonitored dead-head mileage, and lack of real-time cargo telematics leading to cargo integrity queries.",
-      solution:
-        "Deployed IoT-enabled tracking and smart seals, established bonded transit consolidation points, and renegotiated carrier line contracts for priority port gate allocation.",
-      results: [
-        "Cut corridor dwell and turnaround times by 35%, generating over $1.4M in annual demurrage savings.",
-        "Increased fleet asset utilization rate from 62% to 88% across 120 heavy transport assets.",
-        "Maintained 99.4% cargo integrity and regulatory compliance across all EAC customs checkpoints.",
-      ],
-    },
-    {
-      id: "healthcare-pharma-supply",
-      title: "Cold-Chain & Essential Pharmaceuticals GTM",
-      subtitle: "Regulatory approval, institutional tenders, and nationwide distribution for medical supplies.",
-      category: "Market Entry & Public Sector",
-      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
-      period: "2019 — 2020",
-      location: "Kenya (Nationwide Coverage)",
-      metrics: [
-        { label: "County Health Units", value: "42 Counties" },
-        { label: "Cold-Chain Integrity", value: "99.8%" },
-        { label: "Tender Volume", value: "$8.5M" },
-        { label: "Stockout Reduction", value: "-62%" },
-      ],
-      overview:
-        "Spearheaded public and private sector commercial engagement to distribute temperature-sensitive therapeutics and essential supplies across Kenya's decentralized healthcare system.",
-      challenge:
-        "Complex county-level procurement regulations, cold-chain temperature degradation risks during last-mile transit, and unpredictable public hospital reimbursement cycles.",
-      solution:
-        "Designed a localized hub-and-spoke distribution model equipped with continuous digital temperature loggers and established escrow-backed supplier credit terms with county governments.",
-      results: [
-        "Successfully supplied certified medical products across 42 out of 47 Kenyan counties.",
-        "Secured and fulfilled $8.5M in competitive public healthcare and donor-funded supply tenders.",
-        "Reduced critical rural hospital medical stockouts by 62% while preserving 99.8% cold-chain compliance.",
+        "Reduced enterprise closing cycle from 6 months to 45 days across Tier-1 accounts.",
+        "Lowered blended B2B customer acquisition cost by 24% across 4 East African markets.",
       ],
     },
   ],
 
-  media: [
-    {
-      id: "media-keynote-1",
-      type: "video",
-      title: "Keynote Address: Unlocking Pan-African Trade & Digital Supply Chains",
-      category: "Keynote Presentation",
-      thumbnail: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1000&q=80",
-      videoUrl: "https://www.youtube.com/watch?v=7wtfhZwyrcc", // Accepts standard YouTube URLs
-      duration: "18:40",
-      date: "Nov 2024",
-      description:
-        "Wallace delivers the opening keynote at the East African Commercial Summit in Nairobi, detailing how modern trade corridors can leverage automated customs pre-clearance and multi-modal logistics.",
-      metrics: "Presented to 650+ corporate delegates & regional trade ministers.",
-    },
-    {
-      id: "media-framework-1",
-      type: "image",
-      title: "The 4-Pillar Commercial Execution Architecture",
-      category: "Strategic Framework",
-      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
-      date: "Aug 2024",
-      description:
-        "An executive strategic blueprint mapping high-velocity B2B customer acquisition funnels directly into automated distributor fulfillment hubs, mitigating supply variance across regional borders.",
-      metrics: "Adopted by 14 regional distributor consortia across East Africa.",
-    },
-    {
-      id: "media-panel-1",
-      type: "video",
-      title: "Executive Panel: Building Resilient Operations in Emerging Markets",
-      category: "Industry Panel",
-      thumbnail: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1000&q=80",
-      videoUrl: "https://www.youtube.com/watch?v=5qap5aO4i9A",
-      duration: "26:15",
-      date: "May 2024",
-      description:
-        "Panel discussion covering supply chain risk management, currency volatility hedges, and operational continuity strategies during geopolitical and macroeconomic shifts in the EAC.",
-      metrics: "Broadcast live to 12,000+ regional business leaders.",
-    },
-    {
-      id: "media-visual-telematics",
-      type: "image",
-      title: "Northern Corridor Transit & Dispatch Telematics Hub",
-      category: "Operational Systems",
-      thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80",
-      date: "Jan 2024",
-      description:
-        "High-level telemetry and control dashboard designed to give real-time GPS tracking, electronic seal integrity alerts, and fuel optimization benchmarks across 120+ active haulage units.",
-      metrics: "Reduced transit route discrepancies to < 0.15%.",
-    },
-    {
-      id: "media-briefing-b2b",
-      type: "video",
-      title: "Executive Brief: Structuring High-Yield B2B Joint Ventures",
-      category: "Commercial Strategy",
-      thumbnail: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80",
-      videoUrl: "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-      duration: "14:20",
-      date: "Sep 2023",
-      description:
-        "Strategic masterclass on structuring multi-tiered commercial contracts, revenue sharing matrices, and enforceable SLA governance when partnering with multinational enterprise brands.",
-      metrics: "Internal corporate development training module.",
-    },
-    {
-      id: "media-audit-mombasa",
-      type: "image",
-      title: "Port of Mombasa Multimodal Turnaround & Demurrage Audit",
-      category: "Performance Audit",
-      thumbnail: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80",
-      date: "Mar 2023",
-      description:
-        "Comprehensive empirical performance review analyzing dwell time reductions, dry port transit velocities, and fiscal impact across 2,400+ container units.",
-      metrics: "Verified annual savings exceeding $1.8M in detention fees.",
-    },
-  ],
+  media: [],
 
-  experience: {
-    sectionTag: ".01.2 — CAREER TIMELINE",
-    sectionTitle: "PROFESSIONAL EXPERIENCE",
-    timeline: [
+  credentials: {
+    sectionIndex: "03 / ABOUT WALLACE",
+    headlineLines: ["Commercial strategy.", "Grounded execution."],
+    shortBio:
+      "I'm Wallace Ogundo, a Nairobi-based Marketing and Business Development Strategist. I help industrial enterprises and regional brands build high-velocity B2B pipelines, scalable distributor networks, and profitable commercial partnerships across East Africa.",
+    degrees: [
       {
-        period: "2022 — PRESENT",
-        role: "VP of Business Development & Strategic Growth",
-        company: "Apex Commercial Group / East Africa Advisory",
-        location: "Nairobi, Kenya & Regional",
-        description:
-          "Spearheading high-value enterprise partnerships, commercial go-to-market execution, and cross-border expansion initiatives across Kenya, Uganda, Tanzania, and Rwanda.",
-        achievements: [
-          "Generated $28M+ in qualified institutional deal pipeline through structured B2B agreements.",
-          "Negotiated 14 strategic joint-ventures with regional retail conglomerates and telecom operators.",
-          "Architected unified sales and operational governance framework that boosted gross margins by 18.5%.",
-        ],
-        skills: ["Strategic Growth", "B2B Deal Structuring", "Market Expansion", "Executive Governance", "P&L Management"],
+        degree: "BSc Construction Management",
+        institution: "Dedan Kimathi University (DeKUT)",
+        summaryLine:
+          "Commercial feasibility, industrial project economics, and contract governance.",
       },
       {
-        period: "2018 — 2022",
-        role: "Head of Commercial Operations & Expansion",
-        company: "Equator Logistics & Trade Infrastructure",
-        location: "Nairobi, Kenya",
-        description:
-          "Directed operational scaling, supply chain streamlining, and regional distribution networks across 12 urban and cross-border fulfillment centers.",
-        achievements: [
-          "Reduced fulfillment turn-around time by 38% through route optimization and automated dispatch algorithms.",
-          "Scaled regional commercial operations to absorb a 42% YoY surge in freight volume without headcount bloating.",
-          "Maintained 99.2% SLA compliance rate across tier-1 multinational enterprise manufacturing clients.",
-        ],
-        skills: ["Operations Leadership", "Supply Chain Optimization", "Logistics Scaling", "SLA Governance", "ERP Systems"],
+        degree: "BSc Computer Science",
+        institution: "University of Nairobi (UoN)",
+        summaryLine:
+          "CRM systems, sales-force telemetry, and data-driven pipeline analytics.",
       },
       {
-        period: "2015 — 2018",
-        role: "Senior Marketing & Go-To-Market Strategist",
-        company: "Frontier Brand & Venture Partners",
-        location: "Nairobi, Kenya",
-        description:
-          "Led product marketing launches, high-conversion commercial campaigns, and brand repositioning strategies for emerging enterprises and consumer brands.",
-        achievements: [
-          "Orchestrated 6 high-profile commercial market entries, achieving profitability within 9 months of launch.",
-          "Reduced blended Customer Acquisition Cost (CAC) by 24% while expanding market reach across East Africa.",
-          "Managed an annual marketing and promotional budget of $3.5M with strict ROI tracking.",
-        ],
-        skills: ["Go-To-Market (GTM)", "Campaign Strategy", "Brand Positioning", "Performance Marketing", "Stakeholder Alignment"],
-      },
-      {
-        period: "2012 — 2015",
-        role: "Operations & Logistics Manager",
-        company: "Rift Distribution & Supply Chain Services",
-        location: "Mombasa / Nairobi, Kenya",
-        description:
-          "Managed port logistics, multi-modal warehousing, customs brokerage, and fleet operations for high-velocity FMCG and industrial goods.",
-        achievements: [
-          "Supervised daily inventory turnover across 85,000 sq ft of warehousing facilities.",
-          "Implemented lean warehouse management protocols that slashed shrink and inventory variance to <0.3%.",
-          "Streamlined port clearance protocols at the Port of Mombasa, trimming detention costs by 32%.",
-        ],
-        skills: ["Fleet Operations", "Multimodal Freight", "Customs Clearance", "Lean Warehousing", "Vendor Contracts"],
-      },
-    ],
-    competencies: [
-      {
-        category: "Commercial Strategy",
-        items: [
-          "Enterprise B2B Negotiation",
-          "GTM Execution",
-          "Market Entry & Due Diligence",
-          "Revenue Modeling",
-          "Competitive Intelligence",
-        ],
-      },
-      {
-        category: "Operations & Logistics",
-        items: [
-          "Supply Chain Optimization",
-          "Multimodal Freight & Clearing",
-          "Inventory Turnaround",
-          "SLA & Quality Control",
-          "Vendor Matrix Management",
-        ],
-      },
-      {
-        category: "Platforms & Tech",
-        items: [
-          "Salesforce / HubSpot CRM",
-          "SAP ERP / Oracle NetSuite",
-          "Power BI / Tableau Analytics",
-          "Jira / Agile Workflows",
-          "Digital Conversion Funnels",
-        ],
+        degree: "BA Public Relations",
+        institution: "JKUAT",
+        summaryLine:
+          "High-stakes B2B negotiation, brand positioning, and stakeholder alignment.",
       },
     ],
   },
 
   contact: {
-    sectionTag: ".03 — COMMERCIAL INQUIRIES",
-    sectionTitle: "GET IN TOUCH",
-    headline: "CONTACT",
+    sectionIndex: "04 / LET'S TALK",
+    rightTag: "DIRECT COMMERCIAL & B2B ADVISORY",
+    headlineLines: ["Let's scale", "your market", "footprint."],
     subheadline:
-      "Available for executive advisory engagements, board roles, and senior commercial leadership consultations across East Africa and international trade networks.",
-    availabilityNote: "Available Globally for Advisory & Expansion",
-    officeHours: "EAT (UTC+3) • Fast Response within 24h",
+      "Tap your primary objective below, then connect immediately via WhatsApp, direct call, or email. Zero forms required.",
+    availabilityNote: "Nairobi, Kenya / East Africa",
+    officeHours: "Direct Principal Response Within 24h",
+    objectives: [
+      {
+        id: "rtm-scaling",
+        label: "B2B Route-to-Market & Distributor Scaling",
+        scope: "Territory expansion, stockist networks & channel velocity",
+      },
+      {
+        id: "enterprise-deals",
+        label: "Enterprise Partnerships & Key Accounts",
+        scope: "Corporate supply alliances, B2B deal structuring & bidding",
+      },
+      {
+        id: "gtm-strategy",
+        label: "Go-To-Market Strategy & Brand Positioning",
+        scope: "Market entry playbooks, pricing models & product launches",
+      },
+      {
+        id: "commercial-turnaround",
+        label: "Commercial Operations & Sales Turnaround",
+        scope: "Sales team enablement, SLA governance & margin growth",
+      },
+    ],
   },
 };
