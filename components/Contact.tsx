@@ -14,38 +14,38 @@ interface MandateOption {
 const MANDATE_OPTIONS: MandateOption[] = [
   {
     id: "rtm",
-    label: "B2B Route-to-Market",
+    label: "Route-to-Market & FMCG",
     scope: "Distributor scaling & territory expansion",
     defaultPrompt:
       "I am looking to scale our B2B distribution network, territory design, and commercial stockist footprint across Kenya.",
   },
   {
+    id: "infrastructure",
+    label: "Capital Construction & Engineering",
+    scope: "Civil projects, mechanical works & BQ review",
+    defaultPrompt:
+      "We require project management, contractor coordination, and technical delivery oversight for a construction or engineering mandate.",
+  },
+  {
     id: "partnerships",
-    label: "Enterprise Partnerships",
-    scope: "Key accounts & institutional contracts",
+    label: "Enterprise Accounts & Tenders",
+    scope: "Corporate contracts & commercial bidding",
     defaultPrompt:
-      "We would like to structure corporate supply framework agreements, tier-1 accounts, and strategic vendor alliances.",
+      "We would like to structure corporate supply framework agreements, institutional tenders, and strategic commercial partnerships.",
   },
   {
-    id: "gtm",
-    label: "Go-To-Market & Pricing",
-    scope: "Market entry & commercial positioning",
+    id: "procurement",
+    label: "Procurement & General Supplies",
+    scope: "Industrial equipment, materials & spares sourcing",
     defaultPrompt:
-      "We require go-to-market execution, commercial pricing structure, and launch positioning for East Africa.",
-  },
-  {
-    id: "turnaround",
-    label: "Commercial Turnaround",
-    scope: "Sales velocity & margin recovery",
-    defaultPrompt:
-      "We are seeking to optimize sales force productivity, revenue velocity, and commercial margin performance.",
+      "We are seeking reliable procurement and supply chain sourcing for construction materials, mechanical parts, or institutional goods.",
   },
   {
     id: "advisory",
-    label: "Strategic Advisory",
-    scope: "Executive counsel & board mandates",
+    label: "Commercial Strategy & Advisory",
+    scope: "Executive counsel, turnarounds & board mandates",
     defaultPrompt:
-      "I would like to explore an executive commercial advisory engagement for our leadership team.",
+      "I would like to explore an executive commercial strategy or advisory engagement for our leadership team.",
   },
 ];
 
